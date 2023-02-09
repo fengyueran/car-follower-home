@@ -1,17 +1,17 @@
 import { View } from "@tarojs/components";
 import { styled } from "linaria/react";
 
-import { MasonryLayout } from "src/components";
+import { Waterfall } from "src/components";
 
 const Container = styled(View)`
-  height: 500px;
+  height: 800px;
   background: red;
 `;
 
 export const CarWaterfallContainer = () => {
   return (
     <Container>
-      <MasonryLayout />
+      <Waterfall />
     </Container>
   );
 };

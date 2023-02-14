@@ -4,12 +4,14 @@ import { styled } from "linaria/react";
 import { Col, Row } from "src/components";
 import SearchIcon from "src/assets/search_icon@2x.png";
 
+export const SEARCH_BAR_HEIGHT = 114;
+
 const RootContainer = styled(Col)`
   box-sizing: border-box;
   background-color: rgba(255, 255, 255, 1);
   border-radius: 20px;
   display: flex;
-  height: 114px;
+  height: ${SEARCH_BAR_HEIGHT}px;
   padding: 26px 28px;
 `;
 

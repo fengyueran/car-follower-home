@@ -3,11 +3,15 @@ import { styled } from "linaria/react";
 
 import { View } from "@tarojs/components";
 import { Row } from "src/components";
-import Card, { CardProps } from "../card";
+import Card, { CardProps, CARD_HEIGHT } from "../card";
+
+const PADDING_BOTTOM_HEIGHT = 10;
+
+export const ROW_HEIGHT = CARD_HEIGHT + PADDING_BOTTOM_HEIGHT;
 
 const RootContainer = styled(Row)`
   width: 100%;
-  padding-bottom: 10px;
+  padding-bottom: ${PADDING_BOTTOM_HEIGHT}px;
 `;
 
 const Space = styled(View)`
@@ -35,7 +39,7 @@ const renderCard = (v: CardProps) => {
 const CardRow: React.FC<Props> = ({ id, index, data }) => {
   const [left, right] = data[index];
   return (
-    <RootContainer id={id} style={{ paddingBottom: 5 }}>
+    <RootContainer id={id}>
       {renderCard(left)}
       <Space />
       {renderCard(right)}

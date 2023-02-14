@@ -1,5 +1,4 @@
 import { View } from "@tarojs/components";
-import { getSystemInfo } from "@tarojs/taro";
 import React, { useMemo } from "react";
 import { styled } from "linaria/react";
 

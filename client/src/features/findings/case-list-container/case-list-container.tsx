@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+import { getSystemInfoAsync } from "src/utils";
 import CaseList from "../case-list";
 
 function buildData(offset = 0) {
@@ -14,7 +16,8 @@ function buildData(offset = 0) {
 
 const CaseListContainer = () => {
   const data = buildData();
-  return <CaseList cases={data} />;
+
+  return <CaseList height={800} itemSize={270} cases={data} />;
 };
 
 export default CaseListContainer;

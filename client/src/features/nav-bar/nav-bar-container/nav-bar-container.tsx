@@ -11,7 +11,7 @@ const Container = styled(View)`
 
 const NavBarContainer = () => {
   return (
-    <Container>
+    <Container disableScroll="true">
       <NavBar />
     </Container>
   );

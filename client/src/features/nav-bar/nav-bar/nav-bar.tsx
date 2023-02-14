@@ -18,7 +18,7 @@ const items = [{ name: "发现" }, { name: "我的" }];
 const NavBar = () => {
   const activeTab = "发现";
   return (
-    <Container>
+    <Container disableScroll="true">
       {items.map((i) => {
         return <Item key={i.name} {...i} active={activeTab === i.name} />;
       })}

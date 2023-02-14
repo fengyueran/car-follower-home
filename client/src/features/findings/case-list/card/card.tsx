@@ -3,6 +3,11 @@ import { styled } from "linaria/react";
 
 import { Col } from "src/components";
 
+const IMG_HEIGHT = 363;
+const DESCRIPTION_HEIGHT = 168;
+
+export const CARD_HEIGHT = IMG_HEIGHT + DESCRIPTION_HEIGHT;
+
 const RootContainer = styled(Col)`
   background: #fff;
   border-radius: 10px;
@@ -11,10 +16,12 @@ const RootContainer = styled(Col)`
 
 const Img = styled(Image)`
   width: 100%;
+  height: ${IMG_HEIGHT}px;
 `;
 
 const Description = styled(View)`
   width: 100%;
+  height: ${DESCRIPTION_HEIGHT}px;
   padding: 16px 56px 16px 20px;
   box-sizing: border-box;
   font-size: 28px;
@@ -33,8 +40,8 @@ export interface CardProps {
 const Card: React.FC<CardProps> = ({ img, description }) => {
   return (
     <RootContainer>
-      <Img src={img} style={{ height: 181 }} />
-      <Description style={{ height: 84 }}>{description}</Description>
+      <Img src={img} />
+      <Description>{description}</Description>
     </RootContainer>
   );
 };

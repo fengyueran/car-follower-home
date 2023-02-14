@@ -3,8 +3,8 @@ import { styled } from "linaria/react";
 import { useMemo } from "react";
 
 import { VirtualList } from "src/components";
-import { CardProps } from "../card";
-import CardRow from "../card-row";
+import { CardProps } from "./card";
+import CardRow from "./card-row";
 
 const RootContainer = styled(View)`
   padding: 0 8px 0 8px;
@@ -14,10 +14,12 @@ const RootContainer = styled(View)`
 `;
 
 interface Props {
+  height: number;
+  itemSize: number;
   cases: CardProps[];
 }
 
-const CaseList: React.FC<Props> = ({ cases }) => {
+const CaseList: React.FC<Props> = ({ height, itemSize, cases }) => {
   const itemData = useMemo(() => {
     let index = 0;
     let row = cases.slice(index * 2, index * 2 + 2);
@@ -31,14 +33,29 @@ const CaseList: React.FC<Props> = ({ cases }) => {
     return rowList;
   }, [cases]);
 
+  const renderBottom = () => {
+    // if (allCasesLoaded) {
+    //   return <BottomHint>加载完毕</BottomHint>;
+    // }
+    // return (
+    //   loading && (
+    //     <Spinner>
+    //       <View className="loader" />
+    //     </Spinner>
+    //   )
+    // );
+    return <View style={{ height: 100 }}>我是有底线的</View>;
+  };
+
   return (
     <RootContainer>
       <VirtualList
-        height={800}
+        height={height}
         width="100%"
         itemData={itemData}
         itemCount={itemData.length}
-        itemSize={270}
+        itemSize={itemSize}
+        renderBottom={renderBottom()}
       >
         {CardRow}
       </VirtualList>

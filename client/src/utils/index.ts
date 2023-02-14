@@ -1,19 +1,9 @@
-import { getSystemInfo } from "@tarojs/taro";
+import { getSystemInfoSync } from "@tarojs/taro";
 
-export const getSystemInfoAsync = (() => {
+export const getSystemInfo = (() => {
   let _systemInfo;
   return () => {
     if (_systemInfo) return _systemInfo;
-    return new Promise((reslove, reject) => {
-      getSystemInfo({
-        success: (res) => {
-          _systemInfo = res;
-          reslove(res);
-        },
-        fail: (e) => {
-          reject(e);
-        },
-      });
-    });
+    _systemInfo = getSystemInfoSync();
   };
 })();

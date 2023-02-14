@@ -1,8 +1,8 @@
 import { View } from "@tarojs/components";
 import { styled } from "linaria/react";
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 
-import useSystemInfo from "../use-system-info";
+import { getSystemInfo } from "src/utils";
 import SearchBar, { SEARCH_BAR_HEIGHT } from "../search-bar";
 import CaseList, { ROW_HEIGHT } from "../case-list";
 
@@ -21,24 +21,9 @@ const SeparateBar = styled(View)`
   height: 1px;
 `;
 
-function buildData(offset = 0) {
-  return Array(51)
-    .fill(0)
-    .map((_, i) => {
-      return {
-        type: "string",
-        description: "三行字三行字三行字三行字三行三行字三行字",
-        img: "https://i.pinimg.com/236x/7f/24/8c/7f248c9e18abe79de0d6c79617e03361.jpg",
-      };
-    });
-}
-
 const Findings = () => {
-  const data = buildData();
-  const [systemInfo, error] = useSystemInfo();
-
   const [height, cardSize] = useMemo(() => {
-    if (!systemInfo) return [];
+    const systemInfo = getSystemInfo();
     const ratio = systemInfo.windowWidth / 750;
     const h =
       systemInfo.windowHeight -
@@ -46,19 +31,13 @@ const Findings = () => {
 
     const itemSize = ratio * ROW_HEIGHT;
     return [h, itemSize];
-  }, [systemInfo]);
-
-  const renderContent = () => {
-    if (error) return <View>error</View>;
-    if (!height || !cardSize) return <View>loading</View>;
-    return <CaseList height={height} itemSize={cardSize} cases={data} />;
-  };
+  }, []);
 
   return (
     <Container>
       <SearchBar />
       <SeparateBar />
-      {renderContent()}
+      <CaseList height={height} itemSize={cardSize} />;
     </Container>
   );
 };

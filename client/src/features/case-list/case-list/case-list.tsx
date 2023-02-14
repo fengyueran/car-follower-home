@@ -10,6 +10,7 @@ const RootContainer = styled(View)`
   padding: 0 8px 0 8px;
   justify-content: center;
   min-height: 600px;
+  background: #f5f5f5;
 `;
 
 interface Props {

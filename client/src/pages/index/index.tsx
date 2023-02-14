@@ -2,9 +2,9 @@ import { View } from "@tarojs/components";
 import { styled } from "linaria/react";
 
 import SearchBar from "src/features/search-bar";
-import { NavBar } from "src/features/nav-bar";
+import NavBar from "src/features/nav-bar";
 import CaseList from "src/features/case-list";
-import { CarWaterfall } from "src/features/car-waterfall";
+// import { CarWaterfall } from "src/features/car-waterfall";
 // import Login from "../../components/login/index";
 
 const Container = styled(View)`

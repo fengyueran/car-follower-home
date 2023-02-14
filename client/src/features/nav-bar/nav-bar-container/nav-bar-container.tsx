@@ -1,18 +1,20 @@
 import { View } from "@tarojs/components";
 import { styled } from "linaria/react";
 
-import { NavBar } from "../components";
+import NavBar from "../nav-bar";
 
 const Container = styled(View)`
   position: fixed;
-  bottom: 50px;
+  bottom: 0;
   width: 100%;
 `;
 
-export const NavBarContainer = () => {
+const NavBarContainer = () => {
   return (
     <Container>
       <NavBar />
     </Container>
   );
 };
+
+export default NavBarContainer;

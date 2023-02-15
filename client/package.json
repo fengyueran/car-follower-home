@@ -26,7 +26,8 @@
     "dev:rn": "npm run build:rn -- --watch",
     "dev:qq": "npm run build:qq -- --watch",
     "dev:jd": "npm run build:jd -- --watch",
-    "dev:quickapp": "npm run build:quickapp -- --watch"
+    "dev:quickapp": "npm run build:quickapp -- --watch",
+    "createMockCars": "ts-node scripts/create-cars-mock-data.ts"
   },
   "author": "",
   "license": "MIT",
@@ -69,6 +70,7 @@
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react": "^7.8.2",
     "eslint-plugin-react-hooks": "^4.2.0",
+    "fs-extra": "^11.1.0",
     "postcss": "^8.4.18",
     "prettier": "^2.8.3",
     "react-refresh": "^0.11.0",

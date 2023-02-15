@@ -81,6 +81,7 @@ const CaseList: React.FC<Props> = ({
         onScroll={({ scrollDirection, scrollOffset }) => {
           if (
             !loading &&
+            !allCasesLoaded &&
             scrollDirection === "forward" &&
             scrollOffset > (itemData.length - 5) * itemSize
           ) {

@@ -12,6 +12,7 @@ const RootContainer = styled(Col)`
   background: #fff;
   border-radius: 10px;
   width: 100%;
+  position: relative;
 `;
 
 const Img = styled(Image)`
@@ -31,17 +32,26 @@ const Description = styled(View)`
   line-height: 44px;
 `;
 
+const Name = styled(View)`
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  color: red;
+`;
+
 export interface CardProps {
+  name: string;
   type: string;
   description: string;
   img: string;
 }
 
-const Card: React.FC<CardProps> = ({ img, description }) => {
+const Card: React.FC<CardProps> = ({ name, img, description }) => {
   return (
     <RootContainer>
       <Img src={img} />
       <Description>{description}</Description>
+      <Name>{name}</Name>
     </RootContainer>
   );
 };

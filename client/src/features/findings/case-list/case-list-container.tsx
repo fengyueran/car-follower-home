@@ -2,30 +2,16 @@ import { useCallback, useEffect, useRef, useState } from "react";
 
 import { CardProps } from "./card";
 import CaseList from "./case-list";
-
-function buildData(offset = 0) {
-  return Array(51)
-    .fill(0)
-    .map((_, i) => {
-      return {
-        type: "string",
-        description: "三行字三行字三行字三行字三行三行字三行字",
-        img: "https://i.pinimg.com/236x/7f/24/8c/7f248c9e18abe79de0d6c79617e03361.jpg",
-      };
-    });
-}
-
-const data = buildData();
-
-const PAGE_SIZE = 10;
+import { getCarsCount, fetchCars, PAGE_SIZE } from "../apis";
 
 const getCases = async (page: number) => {
-  await new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(1);
-    }, 2000);
-  });
-  const pageData = data.slice(page * PAGE_SIZE, (page + 1) * PAGE_SIZE);
+  // await new Promise((resolve) => {
+  //   setTimeout(() => {
+  //     resolve(1);
+  //   }, 1000);
+  // });
+  const res = await fetchCars(page);
+  const pageData = res.data as CardProps[];
   return pageData;
 };
 
@@ -36,27 +22,33 @@ interface Props {
 
 const CaseListContainer: React.FC<Props> = (props) => {
   const pageRef = useRef(0);
+  const pageCountRef = useRef<number>();
   const [loading, setLoading] = useState(false);
   const [allCasesLoaded, setAllCasesLoaded] = useState(false);
   const [cases, setCases] = useState<CardProps[]>([]);
 
   const fetchCases = useCallback(async () => {
     setLoading(true);
+    try {
+      if (pageCountRef.current === undefined) {
+        const total = await getCarsCount();
+        pageCountRef.current = Math.ceil(total / PAGE_SIZE);
+      }
 
-    const pageData = await getCases(pageRef.current);
-    if (pageData.length) {
+      const pageData = await getCases(pageRef.current);
+      if (pageData.length) {
+        setCases([...cases, ...pageData]);
+      }
+      if (pageCountRef.current === pageRef.current) {
+        setAllCasesLoaded(true);
+      }
       pageRef.current++;
-      setCases([...cases, ...pageData]);
-    } else {
-      setAllCasesLoaded(true);
+    } catch (err) {
+      console.error("fetch case error", err);
+    } finally {
+      setLoading(false);
     }
-
-    setLoading(false);
   }, [cases]);
-
-  useEffect(() => {
-    fetchCases();
-  }, [fetchCases]);
 
   return (
     <CaseList

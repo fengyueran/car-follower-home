@@ -18,7 +18,7 @@ const Index = () => {
       <Findings />
       {/* <Login /> */}
       {/* <CarWaterfall /> */}
-      <NavBar />
+      {/* <NavBar /> */}
     </Container>
   );
 };

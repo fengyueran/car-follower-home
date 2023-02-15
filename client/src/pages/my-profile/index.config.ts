@@ -1,0 +1,4 @@
+export default {
+  navigationBarTitleText: "我的",
+  backgroundColor: "#f5f5f5",
+};

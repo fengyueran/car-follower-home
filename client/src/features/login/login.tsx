@@ -2,6 +2,7 @@ import { View, Button } from "@tarojs/components";
 import { styled } from "linaria/react";
 
 import { Col } from "src/components";
+import Statement from "./statement";
 
 const Container = styled(Col)`
   height: 100vh;
@@ -16,13 +17,14 @@ const Img = styled(View)`
 const LoginBtn = styled(Button)`
   height: 106px;
   background: #3388ff;
-  width: 100%;
+  flex-grow: 0 1;
   border-radius: 52px;
   line-height: 106px;
   font-size: 36px;
   font-family: PingFangSC-Semibold, PingFang SC;
   font-weight: 600;
   color: #ffffff;
+  margin: 0 38px;
 `;
 
 const TextBtn = styled(View)`
@@ -37,12 +39,27 @@ const TextBtn = styled(View)`
   margin-top: 32px;
 `;
 
+const SpaceY = styled(View)`
+  height: 192px;
+`;
+
 const Login = () => {
   return (
     <Container>
       <Img>图片占位</Img>
-      <LoginBtn>一键登录</LoginBtn>
+      <LoginBtn
+        className="login-btn"
+        openType="getPhoneNumber"
+        // onClick={onClick}
+        onGetPhoneNumber={(data) => {
+          console.log("8888", data);
+        }}
+      >
+        一键登录
+      </LoginBtn>
       <TextBtn>手机号码登录/注册</TextBtn>
+      <SpaceY />
+      <Statement />
     </Container>
   );
 };

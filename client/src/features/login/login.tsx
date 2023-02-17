@@ -1,5 +1,6 @@
 import { View, Button } from "@tarojs/components";
 import { styled } from "linaria/react";
+import { navigateTo } from "@tarojs/taro";
 
 import { Col } from "src/components";
 import Statement from "./statement";
@@ -59,7 +60,13 @@ const Login = () => {
       >
         一键登录
       </LoginBtn>
-      <TextBtn>手机号码登录/注册</TextBtn>
+      <TextBtn
+        onClick={() => {
+          navigateTo({ url: "/pages/verify/index" });
+        }}
+      >
+        手机号码登录/注册
+      </TextBtn>
       <SpaceY />
       <Statement />
     </Container>

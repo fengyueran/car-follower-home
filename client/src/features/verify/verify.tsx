@@ -89,35 +89,47 @@ const InvalidHint = styled(Text)`
 const PHONE_NUM_LENGTH = 11;
 const Verify = () => {
   const [phoneNumInvalid, setPhoneNumInvalid] = useState(false);
+  const [canLogin, setCanLogin] = useState(false);
+
   const phoneNumRef = useRef("");
   const verifyCodeRef = useRef("");
 
-  const onPhoneNumInput = useCallback((e) => {
-    phoneNumRef.current = e.target.value;
-    if (phoneNumRef.current.length === PHONE_NUM_LENGTH) {
-      if (!isPhoneNum(phoneNumRef.current)) {
-        setPhoneNumInvalid(true);
+  const onPhoneNumInput = useCallback(
+    (e) => {
+      phoneNumRef.current = e.target.value;
+      if (phoneNumRef.current.length === PHONE_NUM_LENGTH) {
+        if (!isPhoneNum(phoneNumRef.current)) {
+          setPhoneNumInvalid(true);
+        }
+      } else if (phoneNumInvalid) {
+        setPhoneNumInvalid(false);
       }
-    }
-  }, []);
+    },
+    [phoneNumInvalid]
+  );
 
   const onVerifyCodeInput = useCallback((e) => {
     verifyCodeRef.current = e.target.value;
+    if (verifyCodeRef.current.length === 6) {
+      setCanLogin(true);
+    }
   }, []);
 
   const login = useCallback(() => {
-    if (isPhoneNum(phoneNumRef.current)) {
-    } else {
-      setPhoneNumInvalid(true);
+    if (canLogin) {
+      if (isPhoneNum(phoneNumRef.current)) {
+      } else {
+        setPhoneNumInvalid(true);
+      }
     }
-  }, []);
+  }, [canLogin]);
 
   return (
     <Container>
       <Slogon>登录后更精彩</Slogon>
       <Statement>我们将保护你的个人隐私</Statement>
       <InputWrapper
-        style={{ borderBottomColor: phoneNumInvalid ? "red" : "#f5f5f5" }}
+        style={{ borderBottomColor: phoneNumInvalid ? "#d377cd" : "#f5f5f5" }}
       >
         <CountryCode>+86</CountryCode>
         <Icon src={ArrowIcon} />
@@ -140,7 +152,9 @@ const Verify = () => {
         />
         <SendVerifyCodeBtn />
       </InputWrapper>
-      <LoginBtn onClick={login}>登录</LoginBtn>
+      <LoginBtn onClick={login} style={{ opacity: canLogin ? 1 : 0.3 }}>
+        登录
+      </LoginBtn>
     </Container>
   );
 };

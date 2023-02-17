@@ -1,11 +1,19 @@
-import { View, Text, Input, Image, Button } from "@tarojs/components";
-import { useRef, useMemo, useCallback } from "react";
+import {
+  View,
+  Text,
+  Input,
+  Image,
+  Button,
+  ITouchEvent,
+} from "@tarojs/components";
+import { useRef, useMemo, useCallback, useState } from "react";
 import { styled } from "linaria/react";
 
 import { Row, Col } from "src/components";
 import { getSystemInfo } from "src/utils";
 
 import Tag from "./tag";
+import login from "../login";
 
 const Container = styled(Col)`
   height: 100vh;
@@ -77,6 +85,7 @@ const tagItems = [
 
 const Tags = () => {
   const confirm = useCallback((e) => {}, []);
+  const [selected, setSelected] = useState<string[]>([]);
 
   const rows = useMemo(() => {
     let index = 0;
@@ -91,6 +100,22 @@ const Tags = () => {
     return rowList;
   }, []);
 
+  const onClick = useCallback(
+    (e: ITouchEvent) => {
+      const dataset = e.currentTarget.dataset;
+      const name = dataset.name as string;
+      const newSelected = [...selected];
+      const index = selected.indexOf(name);
+      if (index >= 0) {
+        newSelected.splice(index, 1);
+      } else {
+        newSelected.push(name);
+      }
+      setSelected(newSelected);
+    },
+    [selected]
+  );
+
   return (
     <Container>
       <Slogon>选择感兴趣的标签</Slogon>
@@ -98,9 +123,18 @@ const Tags = () => {
       <TagList>
         {rows.map((r, index) => {
           return (
-            <TagRow key={index}>
+            <TagRow data-n={index} key={index}>
               {r.map((t) => {
-                return <Tag key={t.name} {...t} />;
+                const highlight = selected.find((name) => name === t.name);
+                console.log("highlight", highlight);
+                return (
+                  <Tag
+                    {...t}
+                    onClick={onClick}
+                    key={t.name}
+                    highlight={highlight}
+                  />
+                );
               })}
             </TagRow>
           );

@@ -1,7 +1,7 @@
 import { View } from "@tarojs/components";
 import { styled } from "linaria/react";
 import { switchTab, useRouter } from "@tarojs/taro";
-import { useState, useCallback } from "react";
+import { useCallback } from "react";
 
 import { Item } from "./item";
 

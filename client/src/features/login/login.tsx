@@ -12,6 +12,8 @@ const Container = styled(Col)`
 
 const Img = styled(View)`
   height: 892px;
+  border: 1px dashed;
+  margin: 0 34px;
 `;
 
 const LoginBtn = styled(Button)`

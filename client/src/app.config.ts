@@ -4,6 +4,8 @@ export default {
     "pages/login/index",
     "pages/verify/index",
     "pages/tags/index",
+    "pages/agreement/index",
+    "pages/privacy-policy/index",
     "pages/my-profile/index",
   ],
   window: {

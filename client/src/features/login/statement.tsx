@@ -1,5 +1,6 @@
 import { View, Text } from "@tarojs/components";
 import { styled } from "linaria/react";
+import { navigateTo } from "@tarojs/taro";
 
 import { Col, Row } from "src/components";
 
@@ -43,18 +44,22 @@ const AngleBracket = styled(Text)`
 
 const Statement = () => {
   const items = [
-    { title: "用户协议", link: "a" },
-    { title: "隐私政策", link: "b" },
+    { title: "用户协议", link: "/pages/agreement/index" },
+    { title: "隐私政策", link: "/pages/privacy-policy/index" },
   ];
 
   return (
     <Container>
       <StatementText>点击登录代表你已阅读并同意</StatementText>
-
       <LinkWrapper>
-        {items.map(({ title }) => {
+        {items.map(({ title, link }) => {
           return (
-            <Text key={title}>
+            <Text
+              key={title}
+              onClick={() => {
+                navigateTo({ url: link });
+              }}
+            >
               <AngleBracket>《</AngleBracket>
               <Link>{title}</Link>
               <AngleBracket>》</AngleBracket>

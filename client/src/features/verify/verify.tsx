@@ -86,22 +86,11 @@ const InvalidHint = styled(Text)`
   margin: 16px 10px;
 `;
 
-const ReSendHint = styled(Text)`
-  font-size: 24px;
-  font-family: PingFangSC-Regular, PingFang SC;
-  font-weight: 400;
-  color: #d377cd;
-  line-height: 34px;
-  margin: 16px 10px;
-`;
-
 const PHONE_NUM_LENGTH = 11;
 const Verify = () => {
   const [phoneNumInvalid, setPhoneNumInvalid] = useState(false);
   const phoneNumRef = useRef("");
   const verifyCodeRef = useRef("");
-
-  const getVerifyCode = () => {};
 
   const onPhoneNumInput = useCallback((e) => {
     phoneNumRef.current = e.target.value;

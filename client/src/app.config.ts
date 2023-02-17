@@ -3,6 +3,7 @@ export default {
     "pages/index/index",
     "pages/login/index",
     "pages/verify/index",
+    "pages/tags/index",
     "pages/my-profile/index",
   ],
   window: {

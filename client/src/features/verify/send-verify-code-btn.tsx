@@ -1,6 +1,9 @@
 import { Text } from "@tarojs/components";
 import { useRef, useState, useCallback } from "react";
 import { styled } from "linaria/react";
+import Taro from "@tarojs/taro";
+
+import { generateVerifyCode } from "src/utils";
 
 const Container = styled(Text)`
   font-size: 28px;
@@ -18,17 +21,23 @@ const GetVerifyCodeBtn = styled(Text)`
   line-height: 28px;
 `;
 
-const SendVerifyCodeBtn = () => {
-  const secondsRef = useRef(5);
+const COUNTDOWN_DUARATION = 3;
+
+interface Props {
+  onVerifyCodeChange: (code: string) => void;
+}
+const SendVerifyCodeBtn: React.FC<Props> = ({ onVerifyCodeChange }) => {
+  const secondsRef = useRef(COUNTDOWN_DUARATION);
   const [timerVisible, setTimerVisible] = useState(false);
   const [, fourceUpdate] = useState({});
 
-  const getVerifyCode = useCallback(() => {
+  const updateTimer = useCallback(() => {
     setTimerVisible(true);
+
     const timer = setInterval(() => {
       secondsRef.current -= 1;
-      console.log("secondsRef.current", secondsRef.current);
       if (secondsRef.current === 0) {
+        secondsRef.current = COUNTDOWN_DUARATION;
         clearInterval(timer);
         setTimerVisible(false);
       } else {
@@ -36,6 +45,22 @@ const SendVerifyCodeBtn = () => {
       }
     }, 1000);
   }, []);
+
+  const getVerifyCode = useCallback(async () => {
+    updateTimer();
+    try {
+      const data = await Taro.cloud.callFunction({
+        name: "sendSms",
+        data: {
+          phoneNum: "+8613141234125",
+          content: generateVerifyCode(),
+        },
+      });
+      onVerifyCodeChange("12");
+    } catch (err) {
+      console.log("err", err);
+    }
+  }, [updateTimer, onVerifyCodeChange]);
 
   if (timerVisible) {
     return <Container>{`重新发送${secondsRef.current}s`}</Container>;

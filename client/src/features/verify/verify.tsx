@@ -1,6 +1,7 @@
 import { View, Text, Input, Image, Button } from "@tarojs/components";
 import { useRef, useState, useCallback } from "react";
 import { styled } from "linaria/react";
+import { navigateTo } from "@tarojs/taro";
 
 import { isPhoneNum } from "src/utils";
 import { Row, Col } from "src/components";
@@ -87,12 +88,14 @@ const InvalidHint = styled(Text)`
 `;
 
 const PHONE_NUM_LENGTH = 11;
+
 const Verify = () => {
   const [phoneNumInvalid, setPhoneNumInvalid] = useState(false);
   const [canLogin, setCanLogin] = useState(false);
 
   const phoneNumRef = useRef("");
   const verifyCodeRef = useRef("");
+  const inputCodeRef = useRef("");
 
   const onPhoneNumInput = useCallback(
     (e) => {
@@ -109,20 +112,23 @@ const Verify = () => {
   );
 
   const onVerifyCodeInput = useCallback((e) => {
-    verifyCodeRef.current = e.target.value;
-    if (verifyCodeRef.current.length === 6) {
+    inputCodeRef.current = e.target.value;
+    if (inputCodeRef.current.length === 6) {
       setCanLogin(true);
     }
   }, []);
 
   const login = useCallback(() => {
     if (canLogin) {
-      if (isPhoneNum(phoneNumRef.current)) {
-      } else {
-        setPhoneNumInvalid(true);
+      if (inputCodeRef.current !== verifyCodeRef.current) {
+        navigateTo({ url: "/pages/tags/index" });
       }
     }
   }, [canLogin]);
+
+  const onVerifyCodeChange = useCallback((code) => {
+    verifyCodeRef.current = code;
+  }, []);
 
   return (
     <Container>
@@ -150,7 +156,7 @@ const Verify = () => {
           placeholder="请输入验证码"
           onInput={onVerifyCodeInput}
         />
-        <SendVerifyCodeBtn />
+        <SendVerifyCodeBtn onVerifyCodeChange={onVerifyCodeChange} />
       </InputWrapper>
       <LoginBtn onClick={login} style={{ opacity: canLogin ? 1 : 0.3 }}>
         登录

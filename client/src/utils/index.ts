@@ -18,3 +18,13 @@ export const isPhoneNum = (num: string = "") => {
   const match = num.match(PHONE_NUM_REG);
   return match;
 };
+
+export const generateVerifyCode = () => {
+  let codeStr = "";
+  for (let i = 0; i < 6; i += 1) {
+    const code = Math.floor(Math.random() * 10);
+    codeStr = `${codeStr}${code}`;
+  }
+  console.log("codeStr", codeStr);
+  return codeStr;
+};

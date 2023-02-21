@@ -8,7 +8,7 @@ import CaseList, { ROW_HEIGHT } from "../case-list";
 
 const SEPARATE_BAR_HEIGHT = 33;
 
-const BAR_HEIGHT = 162;
+const TAB_BAR_HEIGHT = 162;
 const PADDING_TOP = 24;
 
 const Container = styled(View)`
@@ -27,7 +27,7 @@ const Findings = () => {
     const ratio = systemInfo.windowWidth / 750;
     const h =
       systemInfo.windowHeight -
-      (SEARCH_BAR_HEIGHT + SEPARATE_BAR_HEIGHT + BAR_HEIGHT) * ratio;
+      (SEARCH_BAR_HEIGHT + SEPARATE_BAR_HEIGHT + TAB_BAR_HEIGHT) * ratio;
 
     const itemSize = ratio * ROW_HEIGHT;
     return [h, itemSize];

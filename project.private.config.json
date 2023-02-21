@@ -27,6 +27,13 @@
                     "query": "",
                     "launchMode": "default",
                     "scene": null
+                },
+                {
+                    "name": "my-profile",
+                    "pathName": "pages/my-profile/index",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
                 }
             ]
         }

@@ -2,7 +2,7 @@ import { Input, Image } from "@tarojs/components";
 import { styled } from "linaria/react";
 
 import { Col, Row } from "src/components";
-import SearchIcon from "src/assets/search_icon@2x.png";
+import SearchIcon from "src/assets/search@2x.png";
 
 export const SEARCH_BAR_HEIGHT = 114;
 

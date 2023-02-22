@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { View, Text, Image } from "@tarojs/components";
 import { styled } from "linaria/react";
 
@@ -8,6 +8,7 @@ import { getSystemInfo } from "src/utils";
 import { ROW_HEIGHT } from "src/features/findings/case-list";
 
 import CollectList from "./collect-list";
+import Setting from "./setting";
 
 const USER_PADDING_TOP = 24;
 const USER_PORTRAIT_HEIGHT = 234;
@@ -106,7 +107,15 @@ const SeparateBar = styled(View)`
   height: 1px;
 `;
 
+const SettingWrapper = styled(View)`
+  position: fixed;
+  top: 0;
+  padding-top: 270px;
+  background: rgba(0, 0, 0, 0.5);
+`;
+
 const MyProfile = () => {
+  const [settingVisible, setSettingVisible] = useState(false);
   const [height, cardSize] = useMemo(() => {
     const systemInfo = getSystemInfo();
     const ratio = systemInfo.windowWidth / 750;
@@ -123,6 +132,19 @@ const MyProfile = () => {
     return [h, itemSize];
   }, []);
 
+  const onSettingClick = useCallback(() => {
+    console.log("8888");
+    setSettingVisible(true);
+  }, []);
+
+  const onClose = useCallback(() => {
+    setSettingVisible(false);
+  }, []);
+
+  const saveSetting = useCallback(() => {
+    setSettingVisible(false);
+  }, []);
+
   return (
     <Container>
       <User>
@@ -136,11 +158,16 @@ const MyProfile = () => {
           <Space />
           <Description>自动驾驶科普博主，知乎汽车话题优秀答主</Description>
         </UserInfo>
-        <SettingBtn>设置</SettingBtn>
+        <SettingBtn onClick={onSettingClick}>设置</SettingBtn>
       </User>
       <ConnectBtn>收藏</ConnectBtn>
       <SeparateBar />
       <CollectList height={height} itemSize={cardSize} />
+      {settingVisible && (
+        <SettingWrapper>
+          <Setting onClose={onClose} save={saveSetting} />
+        </SettingWrapper>
+      )}
     </Container>
   );
 };

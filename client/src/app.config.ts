@@ -7,6 +7,7 @@ export default {
     "pages/agreement/index",
     "pages/privacy-policy/index",
     "pages/my-profile/index",
+    "pages/car/index",
   ],
   window: {
     backgroundTextStyle: "light",

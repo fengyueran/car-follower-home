@@ -1,4 +1,4 @@
-import { getSystemInfoSync } from "@tarojs/taro";
+import Taro, { getSystemInfoSync } from "@tarojs/taro";
 
 export const getSystemInfo = (() => {
   let _systemInfo;
@@ -27,4 +27,47 @@ export const generateVerifyCode = () => {
   }
   console.log("codeStr", codeStr);
   return codeStr;
+};
+
+const readFile = (filePath: string): Promise<string> => {
+  const mgr = Taro.getFileSystemManager();
+  return new Promise((reslove, reject) => {
+    mgr.readFile({
+      filePath,
+      encoding: "base64",
+      success: (res) => {
+        reslove(res.data as string);
+      },
+      fail: (res) => {
+        reject(res);
+      },
+    });
+  });
+};
+
+export const getElementByID = (id: string): Promise<Taro.Canvas> => {
+  return new Promise((reslove, reject) => {
+    const query = Taro.createSelectorQuery();
+    query
+      .select(`#${id}`)
+      .node()
+      .exec((res) => {
+        console.log("query result", id, res);
+        if (res && res[0]?.node) {
+          reslove(res[0].node);
+        } else {
+          reject(res);
+        }
+      });
+  });
+};
+
+export const convertCanvasToBase64 = async (canvasID: string) => {
+  const canvas = await getElementByID(canvasID);
+
+  const { tempFilePath } = await Taro.canvasToTempFilePath({
+    canvas,
+  });
+  const base64 = await readFile(tempFilePath);
+  return base64;
 };

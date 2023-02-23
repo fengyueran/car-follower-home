@@ -3,7 +3,7 @@ import Taro from "@tarojs/taro";
 import { View, Text, Button } from "@tarojs/components";
 import { styled } from "linaria/react";
 
-import { Col, Row } from "src/components";
+import { Col, Row, Radar } from "src/components";
 
 const Container = styled(Col)`
   padding: 66px 36px 34px 36px;
@@ -71,7 +71,9 @@ const FactoryIndex = () => {
         <Title>工业垃圾指数</Title>
         <Index>60%</Index>
       </Header>
-      <RadarWrapper></RadarWrapper>
+      <RadarWrapper>
+        <Radar />
+      </RadarWrapper>
       <Footer>
         <Mileage>393,237,299 公里测试里程</Mileage>
         <DetailBtn>查看详情</DetailBtn>
